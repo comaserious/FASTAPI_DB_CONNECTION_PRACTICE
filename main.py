@@ -6,7 +6,6 @@ from db import AsyncSession, get_db, create_database_if_not_exists
 from sqlalchemy import select
 from table_models import *
 from asyncio import to_thread
-from db_operation import execute_query
 
 # lifespan 이벤트 핸들러 정의
 @asynccontextmanager
@@ -75,24 +74,6 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
     await db.delete(user)
     await db.commit()
     return {"detail": f"User with id {user_id} deleted"}
-
-@app.get("/query/{user_id}")
-async def select_query(user_id : int, db: AsyncSession = Depends(get_db)):
-    print(f"/query/{user_id} reached")
-    query = "SELECT * FROM users where id = :user_id"
-    params = {"user_id" : user_id}
-
-    result = await execute_query(db, query, params)
-
-    return result
-
-@app.get("/test")
-async def test(db: AsyncSession = Depends(get_db)):
-    query = "SELECT * FROM users"
-    result = await execute_query(db, query) 
-    user = result.fetchall()[0]
-
-    return {"id" : user.id , "name" : user.name , "email" : user.email}
     
 
 if __name__ == "__main__":

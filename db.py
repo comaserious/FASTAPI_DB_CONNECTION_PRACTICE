@@ -51,7 +51,7 @@ Base = declarative_base()
 
 # 비동기 세션 의존성 함수
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session() as session:
+    async with async_session() as session:    
         try:
             yield session
         except Exception as e:
