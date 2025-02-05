@@ -37,10 +37,10 @@ engine = create_async_engine(
     DATABASE_URL_ASYNC,
     echo=True,              # SQL 로그 출력 (개발/디버깅 시 유용)
     pool_size=10,           # 기본 풀에 유지할 연결의 수
-    # max_overflow=20,        # 기본 풀을 초과하여 생성할 수 있는 최대 연결 수
-    # pool_timeout=30,        # 사용 가능한 연결이 없을 경우 대기할 최대 시간(초)
-    # pool_recycle=1800,      # 일정 시간 이후 연결을 재생성하여 stale connection 방지
-    # pool_pre_ping=True      # 연결 유효성 검사로 비정상 연결 제거
+    max_overflow=20,        # 기본 풀을 초과하여 생성할 수 있는 최대 연결 수
+    pool_timeout=30,        # 사용 가능한 연결이 없을 경우 대기할 최대 시간(초)
+    pool_recycle=1800,      # 일정 시간 이후 연결을 재생성하여 stale connection 방지
+    pool_pre_ping=True      # 연결 유효성 검사로 비정상 연결 제거
 )
 
 # 비동기 세션 생성 팩토리
